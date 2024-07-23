@@ -1,7 +1,6 @@
 package com.kardoaward.kardo.user.mapper;
 
 
-import com.kardoaward.kardo.user.dto.UserShortDto;
 import com.kardoaward.kardo.user.model.User;
 
 public class UserMapper {
