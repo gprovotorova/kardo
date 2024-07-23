@@ -6,7 +6,6 @@ import com.kardoaward.kardo.location.Location;
 import lombok.Data;
 @Data
 public class EventDto {
-    private Long id;
     private String name;
     private EventType type;
     private Direction direction;
