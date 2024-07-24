@@ -37,7 +37,7 @@ public class EventServiceImp implements EventService{
     }
 
     @Override
-    public void deleteUser(Long eventId) {
+    public void deleteEvent(Long eventId) {
         if(eventRepository.existsById(eventId)){
             eventRepository.deleteById(eventId);
         } else {

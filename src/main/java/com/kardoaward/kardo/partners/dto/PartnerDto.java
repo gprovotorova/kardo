@@ -10,8 +10,6 @@ import lombok.*;
 @Builder
 public class PartnerDto {
 
-    private Long id;
-
     private Photo photo;
 
     private String name;

@@ -29,9 +29,9 @@ public class AdminEventController {
 
     @DeleteMapping("/admin/events/{eventId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable @PositiveOrZero Long eventId) {
+    public void deleteEvent(@PathVariable @PositiveOrZero Long eventId) {
         log.info("Удаление события с id {}", eventId);
-        eventService.deleteUser(eventId);
+        eventService.deleteEvent(eventId);
     }
 
     @PatchMapping("/admin/events/{eventId}")

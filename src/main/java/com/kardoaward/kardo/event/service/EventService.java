@@ -10,7 +10,7 @@ import java.util.List;
 public interface EventService {
     EventDto createEvent(EventDto eventDto);
 
-    void deleteUser(Long eventId);
+    void deleteEvent(Long eventId);
 
     EventDto updateEvent(Long eventId, EventDto eventDto);
 
