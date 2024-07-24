@@ -8,6 +8,7 @@ import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private ModelMapper mapper;
 
     @Override
     public List<UserDto> getAllUsers(List<Long> ids, Pageable page) {
@@ -27,17 +29,17 @@ public class UserServiceImpl implements UserService {
             users = userRepository.findAllByIdIn(ids, page).toList();
         }
         return users.stream()
-                .map(UserMapper::toUserDto)
+                .map(user -> mapper.map(user, UserDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.toUser(userDto);
+        User user = mapper.map(userDto, User.class);
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new ObjectExistException("Пользователь с таким e-mail уже существует.");
         }
-        return UserMapper.toUserDto(userRepository.save(user));
+        return mapper.map(userRepository.save(user), UserDto.class);
     }
 
     @Override
