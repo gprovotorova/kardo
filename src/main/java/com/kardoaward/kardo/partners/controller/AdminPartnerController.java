@@ -24,7 +24,7 @@ public class AdminPartnerController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public PartnerDto createPartner (@RequestBody @Valid PartnerDto partnerDto){
-        log.info("Добавление нового gfhnythf {}", partnerDto.toString());
+        log.info("Добавление нового партнера {}", partnerDto.toString());
         return partnerService.createPartner(partnerDto);
     }
 

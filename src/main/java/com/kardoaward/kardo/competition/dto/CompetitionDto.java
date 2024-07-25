@@ -1,6 +1,7 @@
 package com.kardoaward.kardo.competition.dto;
 
 import com.kardoaward.kardo.Direction;
+import com.kardoaward.kardo.stage.model.StageOfCompetition;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -13,8 +14,6 @@ import javax.validation.constraints.Size;
 @Builder
 public class CompetitionDto {
 
-    private Long id;
-
     @NotBlank(message = "Название события не может быть пустым.")
     @Size(min = 3, max = 120)
     private String name;
@@ -25,5 +24,5 @@ public class CompetitionDto {
 
     private Direction direction;
 
-    private Stage stage;
+    private StageOfCompetition stage;
 }
