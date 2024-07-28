@@ -1,6 +1,7 @@
 package com.kardoaward.kardo.user.controller;
 
 import com.kardoaward.kardo.common.PageMaker;
+import com.kardoaward.kardo.user.dto.UserDto;
 import com.kardoaward.kardo.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

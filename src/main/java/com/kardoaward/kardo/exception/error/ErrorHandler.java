@@ -130,18 +130,18 @@ public class ErrorHandler {
         return errorResponse;
     }
 
-    @ExceptionHandler(ParticipationRequestException.class)
-    @ResponseStatus(code = HttpStatus.CONFLICT)
-    public ErrorResponse handleAllExceptions(ParticipationRequestException e) {
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .errors(Collections.singletonList(e.getMessage()))
-                .message(e.getMessage())
-                .reason("Ограничение целостности было нарушено.")
-                .status(HttpStatus.CONFLICT.toString())
-                .timestamp(LocalDateTime.now())
-                .build();
-        log.warn(e.getMessage(), e);
-        return errorResponse;
-    }
+//    @ExceptionHandler(ParticipationRequestException.class)
+//    @ResponseStatus(code = HttpStatus.CONFLICT)
+//    public ErrorResponse handleAllExceptions(ParticipationRequestException e) {
+//        ErrorResponse errorResponse = ErrorResponse.builder()
+//                .errors(Collections.singletonList(e.getMessage()))
+//                .message(e.getMessage())
+//                .reason("Ограничение целостности было нарушено.")
+//                .status(HttpStatus.CONFLICT.toString())
+//                .timestamp(LocalDateTime.now())
+//                .build();
+//        log.warn(e.getMessage(), e);
+//        return errorResponse;
+//    }
 }
 

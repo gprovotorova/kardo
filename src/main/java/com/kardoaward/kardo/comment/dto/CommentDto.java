@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentDto {
 
-    private Long id;
+    private Long photoId;
     private String text;
 }

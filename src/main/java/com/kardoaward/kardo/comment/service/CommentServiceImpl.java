@@ -8,11 +8,13 @@ import com.kardoaward.kardo.comment.repository.CommentRepository;
 import com.kardoaward.kardo.event.model.Event;
 import com.kardoaward.kardo.event.repository.EventRepository;
 import com.kardoaward.kardo.exception.ConflictDataException;
+import com.kardoaward.kardo.exception.ObjectNotFoundException;
 import com.kardoaward.kardo.exception.ObjectValidationException;
+import com.kardoaward.kardo.foto.repository.PhotoRepository;
+import com.kardoaward.kardo.photo.Photo;
 import com.kardoaward.kardo.user.model.User;
 import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,40 +34,41 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
 
+    private final PhotoRepository photoRepository;
+
     @Override
     @Transactional
-    public CommentDto createComment(Long userId, Long eventId, NewCommentDto commentDto) {
+    public CommentDto createComment(Long userId, Long photoId, NewCommentDto newCommentDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователь с id = " + userId + " не найден."));
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + eventId + " не найдено."));
+        Photo photo = photoRepository.findById(photoId)
+                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + photoId + " не найдено."));
 
-        Comment comment = CommentMapper.toCommentFromNew(commentDto, event, user);
+//        if (!event.getState().equals(EventState.PUBLISHED)) {
+//            throw new ConflictDataException("Комментарий нельзя оставить у неопубликованного события.");
+//        }
 
-        if (!event.getState().equals(EventState.PUBLISHED)) {
-            throw new ConflictDataException("Комментарий нельзя оставить у неопубликованного события.");
-        }
+        LocalDateTime time = LocalDateTime.now();
 
-        comment.setCreated(LocalDateTime.now());
-        comment.setUpdated(LocalDateTime.now());
+        Comment comment = CommentMapper.toComment(newCommentDto, photo, user,time);
 
-        return CommentMapper.toCommentDto(commentRepository.save(comment), event, user);
+        return CommentMapper.toCommentDto(commentRepository.save(comment), photo, user);
     }
 
     @Override
     @Transactional
-    public CommentDto updateComment(Long userId, Long eventId, Long commentId, NewCommentDto commentDto) {
+    public CommentDto updateComment(Long userId, Long photoId, Long commentId, NewCommentDto commentDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователь с id = " + userId + " не найден."));
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + eventId + " не найдено."));
+        Photo photo = photoRepository.findById(photoId)
+                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + photoId + " не найдено."));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ObjectNotFoundException("Комментарий с id = " + commentId + " не найден."));
 
         comment.setText(commentDto.getText());
         comment.setUpdated(LocalDateTime.now());
 
-        return CommentMapper.toCommentDto(commentRepository.save(comment), event, user);
+        return CommentMapper.toCommentDto(commentRepository.save(comment), photo, user);
     }
 
     @Override
@@ -84,16 +87,16 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CommentDto> getAllByEventIdAndUserId(Long eventId, Long userId, Pageable page) {
+    public List<CommentDto> getAllByEventIdAndUserId(Long photoId, Long userId, Pageable page) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователь с id = " + userId + " не найден."));
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + eventId + " не найдено."));
+        Photo photo = photoRepository.findById(photoId)
+                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + photoId + " не найдено."));
 
-        return commentRepository.findAllByEventIdAndAuthorId(eventId, userId, page)
+        return commentRepository.findAllByEventIdAndAuthorId(photoId, userId, page)
                 .getContent()
                 .stream()
-                .map(comment -> CommentMapper.toCommentDto(comment, event, user))
+                .map(comment -> CommentMapper.toCommentDto(comment, photo, user))
                 .collect(Collectors.toList());
     }
 
@@ -103,7 +106,7 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findAll(page)
                 .getContent()
                 .stream()
-                .map(comment -> CommentMapper.toCommentDto(comment, comment.getEvent(), comment.getAuthor()))
+                .map(comment -> CommentMapper.toCommentDto(comment, comment.getPhoto(), comment.getAuthor()))
                 .collect(Collectors.toList());
     }
 
@@ -116,7 +119,7 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findAllByAuthorId(userId, page)
                 .getContent()
                 .stream()
-                .map(comment -> CommentMapper.toCommentDto(comment, comment.getEvent(), user))
+                .map(comment -> CommentMapper.toCommentDto(comment, comment.getPhoto(), user))
                 .collect(Collectors.toList());
     }
 
@@ -125,7 +128,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto getByCommentId(Long commentId, Long userId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ObjectNotFoundException("Комментарий с id = " + commentId + " не найден."));
-        return CommentMapper.toCommentDto(comment, comment.getEvent(), comment.getAuthor());
+        return CommentMapper.toCommentDto(comment, comment.getPhoto(), comment.getAuthor());
     }
 
     @Override
@@ -137,7 +140,7 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findAllByEventId(eventId, page)
                 .getContent()
                 .stream()
-                .map(comment -> CommentMapper.toCommentDto(comment, event, comment.getAuthor()))
+                .map(comment -> CommentMapper.toCommentDto(comment, comment.getPhoto(), comment.getAuthor()))
                 .collect(Collectors.toList());
     }
 
@@ -153,7 +156,7 @@ public class CommentServiceImpl implements CommentService {
 
         List<CommentDto> comments = commentRepository.getCommentsWithFilters(rangeStart, rangeEnd, page)
                 .getContent().stream()
-                .map(comment -> CommentMapper.toCommentDto(comment, comment.getEvent(), comment.getAuthor()))
+                .map(comment -> CommentMapper.toCommentDto(comment, comment.getPhoto(), comment.getAuthor()))
                 .collect(Collectors.toList());
         return comments;
     }

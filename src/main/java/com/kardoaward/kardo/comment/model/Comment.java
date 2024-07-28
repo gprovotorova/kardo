@@ -24,6 +24,9 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
+    //TODO добавить тип
+   // elementType
+
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "photo_id", nullable = false)

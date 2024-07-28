@@ -2,7 +2,6 @@ package com.kardoaward.kardo.user.service;
 
 import com.kardoaward.kardo.exception.ObjectExistException;
 import com.kardoaward.kardo.user.dto.UserDto;
-import com.kardoaward.kardo.user.mapper.UserMapper;
 import com.kardoaward.kardo.user.model.User;
 import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

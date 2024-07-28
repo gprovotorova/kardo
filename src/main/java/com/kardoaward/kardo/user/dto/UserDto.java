@@ -22,7 +22,6 @@ import java.time.LocalDate;
 @Builder
 public class UserDto {
     //TODO дописать
-    private Long id;
 
     @NotBlank(message = "Имя пользователя не может быть пустым.")
     @Size(min = 2, max = 250)
