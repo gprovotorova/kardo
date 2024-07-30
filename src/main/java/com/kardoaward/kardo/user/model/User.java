@@ -1,7 +1,7 @@
 package com.kardoaward.kardo.user.model;
 
 import com.kardoaward.kardo.country.model.Country;
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.media.model.Media;
 import com.kardoaward.kardo.region.Region;
 import com.kardoaward.kardo.enums.UserGender;
 import com.kardoaward.kardo.enums.UserType;
@@ -76,7 +76,7 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "photo_id", referencedColumnName = "id")
     @ToString.Exclude
-    private Photo photo;
+    private Media media;
 
     @Column(name = "portfolio") //TODO ссылка
     private String portfolio;
@@ -104,7 +104,7 @@ public class User {
                 && Objects.equals(phone, user.phone)
                 && gender == user.gender
                 && Objects.equals(nationality, user.nationality)
-                && Objects.equals(photo, user.photo)
+                && Objects.equals(media, user.media)
                 && Objects.equals(portfolio, user.portfolio)
                 && Objects.equals(description, user.description);
     }
@@ -112,6 +112,6 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, surname, name, patronymic, type, email, password, birthday, country, region, city,
-                links, phone, gender, nationality, photo, portfolio, description);
+                links, phone, gender, nationality, media, portfolio, description);
     }
 }

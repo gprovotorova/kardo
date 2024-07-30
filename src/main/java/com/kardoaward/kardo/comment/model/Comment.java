@@ -1,6 +1,6 @@
 package com.kardoaward.kardo.comment.model;
 
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.media.model.Media;
 import com.kardoaward.kardo.user.model.User;
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "photo_id", nullable = false)
-    private Photo photo;
+    private Media media;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -50,7 +50,7 @@ public class Comment {
         Comment comment = (Comment) o;
         return Objects.equals(id, comment.id) &&
                 Objects.equals(text, comment.text) &&
-                Objects.equals(photo, comment.photo) &&
+                Objects.equals(media, comment.media) &&
                 Objects.equals(author, comment.author) &&
                 Objects.equals(created, comment.created) &&
                 Objects.equals(updated, comment.updated);
@@ -58,6 +58,6 @@ public class Comment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, text, photo, author, created, updated);
+        return Objects.hash(id, text, media, author, created, updated);
     }
 }

@@ -1,6 +1,6 @@
 package com.kardoaward.kardo.partners.model;
 
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.media.model.Media;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +23,7 @@ public class Partner {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icon_id", nullable = false, referencedColumnName = "id")
     @ToString.Exclude
-    private Photo photo;
+    private Media media;
 
     @Column(name = "name")
     private String name;
@@ -43,7 +43,7 @@ public class Partner {
         if (o == null || getClass() != o.getClass()) return false;
         Partner partner = (Partner) o;
         return Objects.equals(id, partner.id)
-                && Objects.equals(photo, partner.photo)
+                && Objects.equals(media, partner.media)
                 && Objects.equals(name, partner.name)
                 && Objects.equals(type, partner.type)
                 && Objects.equals(description, partner.description)
@@ -52,7 +52,7 @@ public class Partner {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, photo, name, type, description, link);
+        return Objects.hash(id, media, name, type, description, link);
     }
 }
 

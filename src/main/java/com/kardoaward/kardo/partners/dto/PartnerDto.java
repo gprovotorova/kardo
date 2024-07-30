@@ -1,6 +1,6 @@
 package com.kardoaward.kardo.partners.dto;
 
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.media.model.Media;
 import lombok.*;
 
 @Getter
@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class PartnerDto {
 
-    private Photo photo;
+    private Media media;
 
     private String name;
 

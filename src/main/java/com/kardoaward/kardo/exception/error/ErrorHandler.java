@@ -4,6 +4,7 @@ import com.kardoaward.kardo.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -123,6 +124,21 @@ public class ErrorHandler {
                 .errors(Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.toList()))
                 .message(e.getMessage())
                 .reason("Объект уже существует.")
+                .status(HttpStatus.CONFLICT.toString())
+                .timestamp(LocalDateTime.now())
+                .build();
+        log.warn(e.getMessage(), e);
+        return errorResponse;
+    }
+
+
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    @ResponseStatus(code = HttpStatus.CONFLICT)
+    public ErrorResponse handleStorageFileNotFound(StorageFileNotFoundException e) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .errors(Collections.singletonList(e.getMessage()))
+                .message(e.getMessage())
+                .reason("Файл хранилища не найден.")
                 .status(HttpStatus.CONFLICT.toString())
                 .timestamp(LocalDateTime.now())
                 .build();
