@@ -1,4 +1,4 @@
-package com.kardoaward.kardo.photo;
+package com.kardoaward.kardo.photo.dto;
 
 import lombok.*;
 

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
 
-    private final ParticipantRepository participantRepository;
+    private ParticipantRepository participantRepository;
 
 }

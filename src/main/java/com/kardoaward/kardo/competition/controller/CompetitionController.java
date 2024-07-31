@@ -3,9 +3,8 @@ package com.kardoaward.kardo.competition.controller;
 import com.kardoaward.kardo.competition.dto.CompetitionDto;
 import com.kardoaward.kardo.competition.model.Competition;
 import com.kardoaward.kardo.competition.service.CompetitionService;
-import com.kardoaward.kardo.partners.dto.PartnerDto;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +15,11 @@ import javax.validation.constraints.PositiveOrZero;
 @RestController
 @RequestMapping("/admin/competitions")
 @Slf4j
-@AllArgsConstructor
 @Validated
 public class CompetitionController {
 
-    private final CompetitionService competitionService;
+    @Autowired
+    private CompetitionService competitionService;
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)

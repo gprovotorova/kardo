@@ -1,4 +1,4 @@
-package com.kardoaward.kardo.photo;
+package com.kardoaward.kardo.photo.entity;
 
 import com.kardoaward.kardo.user.model.User;
 import lombok.*;
@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "photo")
 @Data
-@Builder
 public class Photo {
 
     @Id

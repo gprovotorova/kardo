@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CompetitionServiceImpl implements CompetitionService {
 
-    private final CompetitionRepository competitionRepository;
+    private CompetitionRepository competitionRepository;
 
     private ModelMapper mapper;
 

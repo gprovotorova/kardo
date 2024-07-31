@@ -6,6 +6,7 @@ import com.kardoaward.kardo.comment.service.CommentService;
 import com.kardoaward.kardo.common.PageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import java.util.List;
 @Validated
 public class CommentController {
 
+    @Autowired
     private final CommentService commentService;
 
     @PostMapping("/users/{userId}/events/{eventId}/comments")

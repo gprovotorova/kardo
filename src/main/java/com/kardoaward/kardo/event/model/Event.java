@@ -14,7 +14,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "events")
-@Builder
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +27,7 @@ public class Event {
     private EventType type;
 
     @ManyToOne(fetch = FetchType.LAZY) //TODO или через ENUM
-    @JoinColumn(name = "direction_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "direction_id")//, nullable = false, referencedColumnName = "id")
     @ToString.Exclude
     private Direction direction;
 

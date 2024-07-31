@@ -22,8 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventServiceImp implements EventService{
 
-    private final EventRepository eventRepository;
-    private final UserRepository userRepository;
+    private EventRepository eventRepository;
+    private UserRepository userRepository;
     private ModelMapper mapper;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

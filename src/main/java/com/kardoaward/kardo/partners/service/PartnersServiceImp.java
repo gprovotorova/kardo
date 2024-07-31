@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PartnersServiceImp implements PartnersService{
 
-    private final PartnerRepository partnerRepository;
+    private PartnerRepository partnerRepository;
     private ModelMapper mapper;
 
     @Override

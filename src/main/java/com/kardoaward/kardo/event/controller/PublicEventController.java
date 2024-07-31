@@ -4,8 +4,10 @@ import com.kardoaward.kardo.Direction;
 import com.kardoaward.kardo.enums.EventType;
 import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.event.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +18,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
+@Validated
 public class PublicEventController {
 
+    @Autowired
     private EventService eventService;
 
     @GetMapping("/event")

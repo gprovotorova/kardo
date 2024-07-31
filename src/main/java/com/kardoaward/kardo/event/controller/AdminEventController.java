@@ -4,6 +4,7 @@ import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.event.service.EventService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,11 @@ import javax.validation.constraints.PositiveOrZero;
 @RestController
 @RequestMapping
 @Slf4j
-@AllArgsConstructor
 @Validated
 public class AdminEventController {
 
-    private final EventService eventService;
+    @Autowired
+    private EventService eventService;
 
     @PostMapping("/admin/events")
     @ResponseStatus(HttpStatus.CREATED)

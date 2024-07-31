@@ -1,6 +1,6 @@
 package com.kardoaward.kardo.partners.model;
 
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.photo.entity.Photo;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +12,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "partners")
-@Builder
 public class Partner {
 
     @Id
@@ -21,7 +20,7 @@ public class Partner {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "icon_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "photo_id", nullable = false, referencedColumnName = "id")
     @ToString.Exclude
     private Photo photo;
 

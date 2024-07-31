@@ -1,6 +1,7 @@
 package com.kardoaward.kardo.event.controller;
 
 import com.kardoaward.kardo.event.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus
 public class PrivateEventController {
 
+    @Autowired
     private EventService eventService;
 
     @PostMapping("event/{userId}/events/{eventId}/request")

@@ -1,6 +1,6 @@
 package com.kardoaward.kardo.partners.dto;
 
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.photo.entity.Photo;
 import lombok.*;
 
 @Getter

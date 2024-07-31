@@ -27,7 +27,7 @@ public class Competition {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "directionn_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "direction_id", nullable = false, referencedColumnName = "id")
     @ToString.Exclude
     private Direction direction;
 

@@ -14,7 +14,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "stages")
-@Builder
 public class StageOfCompetition {
 
     @Id

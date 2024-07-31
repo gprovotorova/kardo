@@ -10,7 +10,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "directions")
-@Builder
 public class Direction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

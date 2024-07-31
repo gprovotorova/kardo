@@ -1,7 +1,7 @@
 package com.kardoaward.kardo.user.model;
 
 import com.kardoaward.kardo.country.model.Country;
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.photo.entity.Photo;
 import com.kardoaward.kardo.region.Region;
 import com.kardoaward.kardo.enums.UserGender;
 import com.kardoaward.kardo.enums.UserType;

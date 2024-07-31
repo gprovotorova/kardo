@@ -1,6 +1,6 @@
 package com.kardoaward.kardo.comment.model;
 
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.photo.entity.Photo;
 import com.kardoaward.kardo.user.model.User;
 import lombok.*;
 
@@ -14,7 +14,6 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +41,13 @@ public class Comment {
 
     @Column(name = "updated")
     private LocalDateTime updated;
+
+    public Comment(String text, Photo photo, User author, LocalDateTime created) {
+        this.text = text;
+        this.photo = photo;
+        this.author = author;
+        this.created = created;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class ParticipantController {
 
-    private final ParticipantService participantService;
+    private ParticipantService participantService;
 
 }

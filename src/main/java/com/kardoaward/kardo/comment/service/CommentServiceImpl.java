@@ -10,8 +10,8 @@ import com.kardoaward.kardo.event.repository.EventRepository;
 import com.kardoaward.kardo.exception.ConflictDataException;
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
 import com.kardoaward.kardo.exception.ObjectValidationException;
-import com.kardoaward.kardo.foto.repository.PhotoRepository;
-import com.kardoaward.kardo.photo.Photo;
+import com.kardoaward.kardo.photo.entity.Photo;
+import com.kardoaward.kardo.photo.repository.PhotoRepository;
 import com.kardoaward.kardo.user.model.User;
 import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +30,11 @@ import static com.kardoaward.kardo.common.Constants.MAX_DATE;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-    private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
-    private final EventRepository eventRepository;
+    private CommentRepository commentRepository;
+    private UserRepository userRepository;
+    private EventRepository eventRepository;
 
-    private final PhotoRepository photoRepository;
+    private PhotoRepository photoRepository;
 
     @Override
     @Transactional
