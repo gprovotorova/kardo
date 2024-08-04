@@ -1,12 +1,12 @@
 package com.kardoaward.kardo.competition.dto;
 
-import com.kardoaward.kardo.enums.DirectionType;
+import com.kardoaward.kardo.direction.Direction;
 import com.kardoaward.kardo.stage.model.StageOfCompetition;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.EnumSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,7 +23,7 @@ public class CompetitionDto {
     @NotBlank(message = "Описание конкурса не может быть пустым.")
     private String description;
 
-    private EnumSet<DirectionType> direction;
+    private Set<Direction> direction;
 
     private StageOfCompetition stage;
 }
