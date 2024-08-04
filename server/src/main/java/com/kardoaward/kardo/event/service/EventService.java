@@ -15,6 +15,4 @@ public interface EventService {
     List<EventDto> getEvents(EventType eventType, LocalDateTime date, EnumSet<DirectionType> direction, int from, int size);
 
     EventDto getEventById(Long eventId);
-
-    List<CommentDto> getCommentsByEventId(Long eventId, Pageable page);
 }

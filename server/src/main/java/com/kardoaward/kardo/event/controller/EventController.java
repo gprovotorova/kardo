@@ -43,14 +43,4 @@ public class EventController {
     public EventDto getEventById(@PathVariable Long eventId) {
         return eventService.getEventById(eventId);
     }
-
-    @GetMapping("/{eventId}/comments")
-    @ResponseStatus(HttpStatus.OK)
-    public List<CommentDto> getCommentsByEventId(@PathVariable @PositiveOrZero Long eventId,
-                                                 @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
-                                                 @Positive @RequestParam(defaultValue = "10") Integer size) {
-        log.info("Получение всех комментариев к событию с id {} ", eventId);
-        Pageable page = PageMaker.makePageableWithSort(from, size);
-        return eventService.getCommentsByEventId(eventId, page);
-    }
 }

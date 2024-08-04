@@ -40,12 +40,4 @@ public class EventController {
     public ResponseEntity getEventById(@PathVariable Long eventId) {
         return eventClient.getEventById(eventId);
     }
-
-    @GetMapping(path = "/{eventId}/comments")
-    public ResponseEntity getCommentsByEventId(@PathVariable @PositiveOrZero Long eventId,
-                                       @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
-                                       @Positive @RequestParam(defaultValue = "10") Integer size) {
-        log.info("Получение всех комментариев к событию с id {} ", eventId);
-        return eventClient.getCommentsByEventId(eventId, from, size);
-    }
 }
