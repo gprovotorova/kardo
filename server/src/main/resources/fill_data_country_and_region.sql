@@ -1,5 +1,5 @@
-delete from region;
-delete from country;
+--delete from region;
+--delete from country;
 
 insert into country(id, name) values (0, 'Россия');
 insert into country(id, name) values (1, 'Украина');

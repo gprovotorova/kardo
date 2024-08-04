@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 import static com.kardoaward.kardo.common.Constants.MAX_DATE;
 
-
 @Service
 @RequiredArgsConstructor
 public class StreamServiceImpl implements StreamService {

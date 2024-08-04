@@ -4,6 +4,7 @@ import com.kardoaward.kardo.common.PageMaker;
 import com.kardoaward.kardo.partners.dto.PartnerDto;
 import com.kardoaward.kardo.partners.service.PartnerService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/partners")
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 public class PartnerController {
 

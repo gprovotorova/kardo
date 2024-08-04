@@ -5,6 +5,7 @@ import com.kardoaward.kardo.competition.CompetitionDto;
 import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.partners.dto.PartnerDto;
 import com.kardoaward.kardo.streams.dto.StreamDto;
+import com.kardoaward.kardo.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 @RestController
@@ -100,5 +102,17 @@ public class AdminController {
                                             @RequestBody @Valid CompetitionDto competitionDto){
         log.info("Изменение конкурса с id {}", competitionId);
         return adminClient.updateCompetition(competitionId, competitionDto);
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity createUser(@RequestBody @Valid UserDto userDto) {
+        log.info("Добавление нового пользователя {}", userDto.toString());
+        return adminClient.createUser(userDto);
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity deleteUser(@PathVariable @PositiveOrZero Long userId) {
+        log.info("Удаление пользователя с id {}", userId);
+        return adminClient.deleteUser(userId);
     }
 }

@@ -19,5 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Override
     Optional<User> findById(Long aLong);
 
-    UserDetails findByEmail(String email);
+    User findByEmail(String email);
 }

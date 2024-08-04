@@ -2,7 +2,6 @@ package com.kardoaward.kardo.user.controller;
 
 import com.kardoaward.kardo.comment.NewCommentDto;
 import com.kardoaward.kardo.direction.DirectionDto;
-import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.post.dto.NewPostDto;
 import com.kardoaward.kardo.post.dto.PostDto;
 import com.kardoaward.kardo.user.UserClient;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -27,31 +25,6 @@ import java.util.Set;
 public class UserController {
 
     private final UserClient userClient;
-
-    /*@GetMapping("/admin/users")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity getAllUsers(@RequestParam(required = false) List<Long> ids,
-                                      @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
-                                      @Positive @RequestParam(defaultValue = "10") Integer size) {
-        if (ids == null) {
-            ids = new ArrayList<>();
-        }
-        log.info("Получение всех пользователей: {}", ids.size());
-        return userClient.getAllUsers(ids, from, size);
-    }
-     */
-
-    @PostMapping("/users")
-    public ResponseEntity createUser(@RequestBody @Valid UserDto userDto) {
-        log.info("Добавление нового пользователя {}", userDto.toString());
-        return userClient.createUser(userDto);
-    }
-
-    @DeleteMapping("/users/{userId}")
-    public ResponseEntity deleteUser(@PathVariable @PositiveOrZero Long userId) {
-        log.info("Удаление пользователя с id {}", userId);
-        return userClient.deleteUser(userId);
-    }
 
     @PostMapping("/users/{userId}")
     public ResponseEntity updateUser(@PathVariable @PositiveOrZero Long userId,
@@ -88,15 +61,15 @@ public class UserController {
 
     @PostMapping("/users/{userId}/posts/")
     public ResponseEntity createPost(@PathVariable @PositiveOrZero Long userId,
-                              @RequestBody @Valid NewPostDto postDto) {
+                                     @RequestBody @Valid NewPostDto postDto) {
         log.info("Добавление нового поста {} пользователем с id {}", postDto.toString(), userId);
         return userClient.createPost(userId, postDto);
     }
 
     @PatchMapping("/users/{userId}/posts/{postId}")
     public ResponseEntity updatePost(@PathVariable @PositiveOrZero Long userId,
-                              @PathVariable @PositiveOrZero Long postId,
-                              @RequestBody @Valid PostDto postDto) {
+                                     @PathVariable @PositiveOrZero Long postId,
+                                     @RequestBody @Valid PostDto postDto) {
         log.info("Изменение поста с id {} добавленного пользователем с id {} новыми данными {}",
                 postId, userId, postDto.toString());
         return userClient.updatePost(userId, postId, postDto);
@@ -104,26 +77,30 @@ public class UserController {
 
     @DeleteMapping("/users/{userId}/posts/{postId}")
     public ResponseEntity deletePost(@PathVariable @PositiveOrZero Long userId,
-                           @PathVariable @PositiveOrZero Long postId) {
+                                     @PathVariable @PositiveOrZero Long postId) {
         log.info("Удаление поста с id {} пользователем с id {} ", postId, userId);
         return userClient.deletePost(userId, postId);
     }
 
     @PostMapping("/users/{userId}/posts/{postId}/like")
-    public ResponseEntity addLike(@PathVariable Long userId, @PathVariable Long postId, @RequestParam String type) {
+    public ResponseEntity addLike(@PathVariable Long userId,
+                                  @PathVariable Long postId,
+                                  @RequestParam String type) {
         return userClient.addLike(userId, postId, type);
     }
 
     @PostMapping("/users/{userId}/posts/{postId}/dislike")
-    public ResponseEntity addDislike(@PathVariable Long userId, @PathVariable Long postId, @RequestParam String type) {
+    public ResponseEntity addDislike(@PathVariable Long userId,
+                                     @PathVariable Long postId,
+                                     @RequestParam String type) {
         return userClient.addDislike(userId, postId, type);
     }
 
     @GetMapping("/users/{userId}/posts/{eventId}/comments")
     public ResponseEntity getAllByPostIdAndUserId(@PathVariable @PositiveOrZero Long userId,
-                                                   @PathVariable @PositiveOrZero Long postId,
-                                                   @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
-                                                   @Positive @RequestParam(defaultValue = "10") Integer size) {
+                                                  @PathVariable @PositiveOrZero Long postId,
+                                                  @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
+                                                  @Positive @RequestParam(defaultValue = "10") Integer size) {
         log.info("Получение всех комментариев пользователя с id {} к событию с id {}", userId, postId);
         return userClient.getAllByPostIdAndUserId(postId, userId, from, size);
     }
@@ -194,37 +171,5 @@ public class UserController {
         log.info("Изменение баллов {} участника с id {} в конкурсе c id {} судьей с id {}",
                 points, partId, compId, userId);
         return userClient.evaluateParticipant(userId, compId, partId, points);
-    }
-
-    @GetMapping("/registration")
-    public String registration() {
-        return "registration";
-    }
-
-    @PostMapping("/registration/watcher")
-    public String addParticipant(@RequestBody @Valid UserDto userDto, Map<String, Object> model) {
-        log.info("Добавление нового пользователя {}", userDto.toString());
-        userDto.setType(UserType.WATCHER);
-        userClient.createUser(userDto);
-
-        return "redirect:/login";
-    }
-
-    @PostMapping("/registration/admin")
-    public String addAdmin(@RequestBody @Valid UserDto userDto) {
-        log.info("Добавление нового пользователя {}", userDto.toString());
-        userDto.setType(UserType.ADMIN);
-        userClient.createUser(userDto);
-
-        return "redirect:/login";
-    }
-
-    @PostMapping("/registration/expert")
-    public String addExpert(@RequestBody @Valid UserDto userDto) {
-        log.info("Добавление нового пользователя {}", userDto.toString());
-        userDto.setType(UserType.EXPERT);
-        userClient.createUser(userDto);
-
-        return "redirect:/login";
     }
 }

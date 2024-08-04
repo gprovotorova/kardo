@@ -1,19 +1,18 @@
 package com.kardoaward.kardo.user.model;
 
 import com.kardoaward.kardo.country.model.Country;
+import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.file.model.FileInfo;
 import com.kardoaward.kardo.region.model.Region;
 import com.kardoaward.kardo.enums.UserGender;
-import com.kardoaward.kardo.enums.UserType;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -21,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,7 +88,6 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;

@@ -5,6 +5,7 @@ import com.kardoaward.kardo.competition.CompetitionDto;
 import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.partners.dto.PartnerDto;
 import com.kardoaward.kardo.streams.dto.StreamDto;
+import com.kardoaward.kardo.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -75,5 +76,13 @@ public class AdminClient extends BaseClient {
 
     public ResponseEntity deleteCompetition(Long competitionId) {
         return delete("/competitions/" + competitionId);
+    }
+
+    public ResponseEntity createUser(UserDto userDto) {
+        return post("", userDto);
+    }
+
+    public ResponseEntity deleteUser(Long userId) {
+        return delete("/" + userId);
     }
 }

@@ -67,19 +67,6 @@ public class UserServiceImpl implements UserService {
     private ModelMapper mapper;
 
     @Override
-    public List<UserDto> getAllUsers(List<Long> ids, Pageable page) {
-        List<User> users;
-        if (ids.isEmpty()) {
-            users = userRepository.findAll(page).toList();
-        } else {
-            users = userRepository.findAllByIdIn(ids, page).toList();
-        }
-        return users.stream()
-                .map(user -> mapper.map(user, UserDto.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public UserDto createUser(UserDto userDto) {
         User user = mapper.map(userDto, User.class);
         if (userRepository.existsByEmail(user.getEmail())) {

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface UserService {
-    List<UserDto> getAllUsers(List<Long> ids, Pageable page);
 
     UserDto createUser(UserDto userDto);
 

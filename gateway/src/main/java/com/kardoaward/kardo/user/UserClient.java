@@ -31,14 +31,6 @@ public class UserClient extends BaseClient {
         );
     }
 
-    public ResponseEntity createUser(UserDto userDto) {
-        return post("", userDto);
-    }
-
-    public ResponseEntity deleteUser(Long userId) {
-        return delete("/" + userId);
-    }
-
     public ResponseEntity updateUser(Long userId, UserDto userDto) {
         return patch("/" + userId, userDto);
     }
