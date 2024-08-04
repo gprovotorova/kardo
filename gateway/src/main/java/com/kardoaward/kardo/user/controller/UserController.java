@@ -26,30 +26,30 @@ public class UserController {
 
     private final UserClient userClient;
 
-    @PostMapping("/users/{userId}")
+    @PatchMapping("/users/{userId}")
     public ResponseEntity updateUser(@PathVariable @PositiveOrZero Long userId,
                                      @RequestBody @Valid UserDto userDto) {
         log.info("Обновление данных пользователя {}", userDto.toString());
         return userClient.updateUser(userId, userDto);
     }
 
-    @PostMapping("/users/{userId}/events/{eventId}/comments")
+    @PostMapping("/users/{userId}/posts/{postId}/comments")
     public ResponseEntity createComment(@PathVariable @PositiveOrZero Long userId,
-                                        @PathVariable @PositiveOrZero Long eventId,
+                                        @PathVariable @PositiveOrZero Long postId,
                                         @RequestBody @Valid NewCommentDto commentDto) {
         log.info("Добавление нового комментария {} пользователем с id {} к событию с id {}",
-                commentDto.toString(), userId, eventId);
-        return userClient.createComment(userId, eventId, commentDto);
+                commentDto.toString(), userId, postId);
+        return userClient.createComment(userId, postId, commentDto);
     }
 
-    @PatchMapping("/users/{userId}/events/{eventId}/comments/{commentId}")
+    @PatchMapping("/users/{userId}/posts/{postId}/comments/{commentId}")
     public ResponseEntity updateComment(@PathVariable @PositiveOrZero Long userId,
-                                        @PathVariable @PositiveOrZero Long eventId,
+                                        @PathVariable @PositiveOrZero Long postId,
                                         @PathVariable @PositiveOrZero Long commentId,
                                         @RequestBody @Valid NewCommentDto commentDto) {
         log.info("Изменение комментария с id {} добавленного пользователем с id {} новыми данными {}",
                 commentId, userId, commentDto.toString());
-        return userClient.updateComment(userId, eventId, commentId, commentDto);
+        return userClient.updateComment(userId, postId, commentId, commentDto);
     }
 
     @DeleteMapping("/users/{userId}/comments/{commentId}")
@@ -96,7 +96,7 @@ public class UserController {
         return userClient.addDislike(userId, postId, type);
     }
 
-    @GetMapping("/users/{userId}/posts/{eventId}/comments")
+    @GetMapping("/users/{userId}/posts/{postId}/comments")
     public ResponseEntity getAllByPostIdAndUserId(@PathVariable @PositiveOrZero Long userId,
                                                   @PathVariable @PositiveOrZero Long postId,
                                                   @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,

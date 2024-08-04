@@ -44,17 +44,4 @@ public class EventServiceImp implements EventService{
                 .orElseThrow(() -> new ObjectNotFoundException("Событие не найдено или недоступно"));
         return mapper.map(event,EventDto.class);
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<CommentDto> getCommentsByEventId(Long eventId, Pageable page) {
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + eventId + " не найдено."));
-
-        return commentRepository.findAllByPostId(eventId, page)
-                .getContent()
-                .stream()
-                .map(comment -> CommentMapper.toCommentDto(comment, comment.getPost(), comment.getAuthor()))
-                .collect(Collectors.toList());
-    }
 }

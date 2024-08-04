@@ -51,14 +51,4 @@ public class EventClient extends BaseClient {
     public ResponseEntity getEventById(Long eventId) {
         return get("/" + eventId);
     }
-
-    public ResponseEntity getCommentsByEventId(Long eventId,
-                                               Integer from,
-                                               Integer size) {
-        Map<String, Object> parameters = Map.of(
-                "from", from,
-                "size", size
-        );
-        return get("/" + eventId + "/comments?from={from}&size={size}", parameters);
-    }
 }
