@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  gateway:
+    build: gateway/
+    image: kardo-gateway
+    container_name: kardo-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+    - server
+    environment:
+      - KARDO_SERVER_URL=http://server:9090
+
+  server:
+    build: server/
+    image: kardo-server
+    container_name: kardo-server
+    ports:
+      - "9090:9090"
+    depends_on:
+    - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/kardo
+      - SPRING_DATASOURCE_USER=kardo
+      - SPRING_DATASOURCE_PASSWORD=kardo2024
+
+  db:
+    image: postgres:13.7-alpine
+    container_name: kardo-db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=kardo
+      - POSTGRES_USER=kardo
+      - POSTGRES_PASSWORD=kardo2024
