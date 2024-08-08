@@ -28,19 +28,22 @@ import java.util.List;
 public class EventController {
 
     private EventService eventService;
+    private static final String USER = "Authorization";
+
 
     @GetMapping()
-    public List<EventDto> getEventsWithFilters(@RequestParam(required = false) EventType eventType,
+    public List<EventDto> getEventsWithFilters(@RequestHeader(USER) long userId,
+                                               @RequestParam(required = false) EventType eventType,
                                                @RequestParam(required = false)
                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime date,
                                                @RequestParam(defaultValue = "false") EnumSet<DirectionType> direction,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                                @RequestParam(defaultValue = "10") @Positive int size) {
-        return eventService.getEvents(eventType, date, direction, from, size);
+        return eventService.getEvents(userId, eventType, date, direction, from, size);
     }
 
     @GetMapping(path = "/{eventId}")
-    public EventDto getEventById(@PathVariable Long eventId) {
-        return eventService.getEventById(eventId);
+    public EventDto getEventById(@RequestHeader(USER) long userId, @PathVariable Long eventId) {
+        return eventService.getEventById(userId, eventId);
     }
 }

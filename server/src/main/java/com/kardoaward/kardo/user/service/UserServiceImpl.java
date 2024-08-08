@@ -111,7 +111,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ObjectNotFoundException("Пост с id = " + postId + " не найден."));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ObjectNotFoundException("Комментарий с id = " + commentId + " не найден."));
-
         comment.setText(commentDto.getText());
         comment.setUpdatedDate(LocalDateTime.now());
 

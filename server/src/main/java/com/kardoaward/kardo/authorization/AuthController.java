@@ -19,7 +19,7 @@ public class AuthController {
     private final UserService userService;
     private static final String USER = "Authorization";
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     @ResponseStatus(code = HttpStatus.CREATED)
     public String registration(@RequestBody UserDto userDto) {
         return userService.registration(userDto);

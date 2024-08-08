@@ -1,10 +1,15 @@
 package com.kardoaward.kardo.streams.service;
 
+import com.kardoaward.kardo.enums.UserType;
+import com.kardoaward.kardo.exception.ConflictDataException;
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
 import com.kardoaward.kardo.exception.ObjectValidationException;
+import com.kardoaward.kardo.exception.StorageFileNotFoundException;
 import com.kardoaward.kardo.streams.dto.StreamDto;
 import com.kardoaward.kardo.streams.model.Stream;
 import com.kardoaward.kardo.streams.repository.StreamRepository;
+import com.kardoaward.kardo.user.model.User;
+import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
@@ -22,11 +27,17 @@ import static com.kardoaward.kardo.common.Constants.MAX_DATE;
 public class StreamServiceImpl implements StreamService {
 
     private final StreamRepository streamRepository;
+    private final UserRepository userRepository;
     private ModelMapper mapper;
 
     @Override
     @Transactional(readOnly = true)
-    public StreamDto getStreamById(Long streamId) {
+    public StreamDto getStreamById(Long userId, Long streamId) {
+        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)){
+            throw new ConflictDataException("Нет доступа");
+
+        }
         Stream stream = streamRepository.findById(streamId)
                 .orElseThrow(() -> new ObjectNotFoundException("Стрим с id = " + streamId + " не найден."));
         return mapper.map(stream, StreamDto.class);
@@ -34,7 +45,12 @@ public class StreamServiceImpl implements StreamService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<StreamDto> getAllStreams(Pageable page) {
+    public List<StreamDto> getAllStreams(Long userId, Pageable page) {
+        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)){
+            throw new ConflictDataException("Нет доступа");
+
+        }
         return streamRepository.findAll(page)
                 .getContent()
                 .stream()
