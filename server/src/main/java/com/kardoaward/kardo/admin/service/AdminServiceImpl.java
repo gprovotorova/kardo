@@ -3,11 +3,14 @@ package com.kardoaward.kardo.admin.service;
 import com.kardoaward.kardo.competition.dto.CompetitionDto;
 import com.kardoaward.kardo.competition.model.Competition;
 import com.kardoaward.kardo.competition.repository.CompetitionRepository;
+import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.event.model.Event;
 import com.kardoaward.kardo.event.repository.EventRepository;
+import com.kardoaward.kardo.exception.ConflictDataException;
 import com.kardoaward.kardo.exception.ObjectExistException;
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
+import com.kardoaward.kardo.exception.StorageFileNotFoundException;
 import com.kardoaward.kardo.file.dao.FileDAO;
 import com.kardoaward.kardo.partners.dto.PartnerDto;
 import com.kardoaward.kardo.partners.model.Partner;
@@ -15,6 +18,8 @@ import com.kardoaward.kardo.partners.repository.PartnerRepository;
 import com.kardoaward.kardo.streams.dto.StreamDto;
 import com.kardoaward.kardo.streams.model.Stream;
 import com.kardoaward.kardo.streams.repository.StreamRepository;
+import com.kardoaward.kardo.user.model.User;
+import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -31,12 +36,18 @@ public class AdminServiceImpl implements AdminService {
     private final PartnerRepository partnerRepository;
     private final EventRepository eventRepository;
     private final StreamRepository streamRepository;
+    private final UserRepository userRepository;
 
     private ModelMapper mapper;
 
     @Override
     @Transactional
-    public EventDto createEvent(EventDto eventDto) {
+    public EventDto createEvent(Long userId, EventDto eventDto) {
+        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType()!= UserType.ADMIN){
+            throw new ConflictDataException("Нет доступа");
+
+        }
         Event event = mapper.map(eventDto, Event.class);
         if(eventRepository.existsByName(event.getId())){
             throw new ObjectExistException("Событие с таким названием уже существует");
@@ -46,7 +57,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void deleteEvent(Long eventId) {
+    public void deleteEvent(Long userId, Long eventId) {
+        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType()!= UserType.ADMIN){
+            throw new ConflictDataException("Нет доступа");
+
+        }
         if(eventRepository.existsById(eventId)){
             eventRepository.deleteById(eventId);
         } else {
@@ -56,7 +72,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public EventDto updateEvent(Long eventId, EventDto eventDto) {
+    public EventDto updateEvent(Long userId, Long eventId, EventDto eventDto) {
+        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType()!= UserType.ADMIN){
+            throw new ConflictDataException("Нет доступа");
+
+        }
         Event event = mapper.map(eventDto, Event.class);
         if(!eventRepository.existsById(eventId)){
             throw new ObjectNotFoundException("События с таким id не существует");

@@ -38,6 +38,7 @@ import com.kardoaward.kardo.post.mapper.PostMapper;
 import com.kardoaward.kardo.post.model.Post;
 import com.kardoaward.kardo.post.repository.PostRepository;
 import com.kardoaward.kardo.user.dto.UserDto;
+import com.kardoaward.kardo.user.dto.UserEntrance;
 import com.kardoaward.kardo.user.model.User;
 import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -315,5 +316,24 @@ public class UserServiceImpl implements UserService {
                 ParticipantMapper.toEvaluatingParticipant(competition, participant, expert, average);
         return mapper.map(evaluatingParticipantRepository.save(evaluatingParticipant),
                 EvaluatingParticipantDto.class);
+    }
+
+    @Override
+    public String registration(UserDto userDto){
+        User user = mapper.map(userDto, User.class);
+        if (userRepository.existsUserByNameAndSurname(user.getName(), user.getSurname())) {
+            throw new ConflictDataException("Такой пользователь уже существует");
+        }
+        userRepository.save(user);
+        return user.getId().toString();
+    }
+
+    @Override
+    public String login(UserEntrance userEntrance){
+        User user = userRepository.findByEmail(userEntrance.getEmail());
+        if(!user.getPassword().equals(userEntrance.getPassword())){
+            throw new ConflictDataException("Неверный логин или пароль");
+        }
+        return user.getId().toString();
     }
 }

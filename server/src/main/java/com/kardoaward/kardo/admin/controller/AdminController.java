@@ -25,26 +25,27 @@ public class AdminController {
 
     private final AdminService adminService;
     private final UserService userService;
+    private static final String USER = "Authorization";
 
     @PostMapping("/events")
     @ResponseStatus(HttpStatus.CREATED)
-    public EventDto createEvent(@RequestBody @Valid EventDto eventDto) {
+    public EventDto createEvent(@RequestHeader(USER) long userId, @RequestBody @Valid EventDto eventDto) {
         log.info("Добавление нового события {}", eventDto.toString());
-        return adminService.createEvent(eventDto);
+        return adminService.createEvent(userId, eventDto);
     }
 
     @DeleteMapping("/events/{eventId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEvent(@PathVariable @PositiveOrZero Long eventId) {
+    public void deleteEvent(@RequestHeader(USER) long userId, @PathVariable @PositiveOrZero Long eventId) {
         log.info("Удаление события с id {}", eventId);
-        adminService.deleteEvent(eventId);
+        adminService.deleteEvent(userId, eventId);
     }
 
     @PatchMapping("/events/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    public EventDto updateEvent(@PathVariable @PositiveOrZero Long eventId, @RequestBody @Valid EventDto eventDto) {
+    public EventDto updateEvent(@RequestHeader(USER) long userId, @PathVariable @PositiveOrZero Long eventId, @RequestBody @Valid EventDto eventDto) {
         log.info("Изменение события с id {}", eventId);
-        return adminService.updateEvent(eventId, eventDto);
+        return adminService.updateEvent(userId, eventId, eventDto);
     }
 
     @PostMapping("/partners")

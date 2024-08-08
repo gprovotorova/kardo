@@ -6,8 +6,6 @@ import com.kardoaward.kardo.file.model.FileInfo;
 import com.kardoaward.kardo.region.model.Region;
 import com.kardoaward.kardo.enums.UserGender;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.net.URL;

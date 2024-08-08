@@ -7,11 +7,11 @@ import com.kardoaward.kardo.streams.dto.StreamDto;
 
 public interface AdminService {
 
-    EventDto createEvent(EventDto eventDto);
+    EventDto createEvent(Long userId, EventDto eventDto);
 
-    void deleteEvent(Long eventId);
+    void deleteEvent(Long userId, Long eventId);
 
-    EventDto updateEvent(Long eventId, EventDto eventDto);
+    EventDto updateEvent(Long userId, Long eventId, EventDto eventDto);
 
     PartnerDto createPartner(PartnerDto partnerDto);
 
