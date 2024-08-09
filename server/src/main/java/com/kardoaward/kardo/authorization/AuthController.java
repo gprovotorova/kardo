@@ -1,5 +1,6 @@
 package com.kardoaward.kardo.authorization;
 
+import com.kardoaward.kardo.user.dto.NewUserDto;
 import com.kardoaward.kardo.user.dto.UserDto;
 import com.kardoaward.kardo.user.dto.UserEntrance;
 import com.kardoaward.kardo.user.service.UserService;
@@ -21,19 +22,19 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String registration(@RequestBody UserDto userDto) {
+    public UserDto registration(@RequestBody NewUserDto userDto) {
         return userService.registration(userDto);
     }
 
     @GetMapping("/logout")
     @ResponseStatus(code = HttpStatus.OK)
-    public String logout(@RequestHeader(USER) long userId) {
-        return "redirect:/feed";
+    public UserDto logout(@RequestHeader(USER) long userId) {
+        return userService.getUserById(userId);
     }
 
     @GetMapping("/login")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public String login(@RequestBody UserEntrance userEntrance) {
+    public UserDto login(@RequestBody UserEntrance userEntrance) {
         return userService.login(userEntrance);
     }
 }

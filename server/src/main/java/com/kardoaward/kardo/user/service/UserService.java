@@ -11,8 +11,10 @@ import com.kardoaward.kardo.participant.dto.EvaluatingParticipantDto;
 import com.kardoaward.kardo.participant.dto.EventParticipantDto;
 import com.kardoaward.kardo.post.dto.NewPostDto;
 import com.kardoaward.kardo.post.dto.PostDto;
+import com.kardoaward.kardo.user.dto.NewUserDto;
 import com.kardoaward.kardo.user.dto.UserDto;
 import com.kardoaward.kardo.user.dto.UserEntrance;
+import com.kardoaward.kardo.user.model.User;
 import org.springframework.data.domain.Pageable;
 
 import java.util.EnumSet;
@@ -23,7 +25,7 @@ public interface UserService {
 
     UserDto createUser(UserDto userDto);
 
-    UserDto updateUser(Long userId, UserDto userDto);
+    UserDto updateUser(Long userId, NewUserDto userDto);
 
     void deleteUser(Long userId);
 
@@ -59,7 +61,9 @@ public interface UserService {
 
     PostDto addLikeOrDislike(Long userId, Long postId, String type);
 
-    String registration(UserDto userDto);
+    UserDto registration(NewUserDto userDto);
 
-    String login(UserEntrance userEntrance);
+    UserDto login(UserEntrance userEntrance);
+
+    UserDto getUserById(Long userId);
 }
