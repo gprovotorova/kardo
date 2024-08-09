@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PartnerService {
 
-    PartnerDto getPartnerById(Long partnerId);
+    PartnerDto getPartnerById(Long userId, Long partnerId);
 
-    List<PartnerDto> getAllPartnersWithFilters(String type, Pageable page);
+    List<PartnerDto> getAllPartnersWithFilters(Long userId, String type, Pageable page);
 }

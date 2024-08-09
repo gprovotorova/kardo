@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface EventService {
 
-    List<EventDto> getEvents(EventType eventType, LocalDateTime date, EnumSet<DirectionType> direction, int from, int size);
+    List<EventDto> getEvents(Long userId, EventType eventType, LocalDateTime date, EnumSet<DirectionType> direction, int from, int size);
 
-    EventDto getEventById(Long eventId);
+    EventDto getEventById(Long userId, Long eventId);
 }

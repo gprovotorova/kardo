@@ -26,20 +26,23 @@ import java.util.List;
 public class StreamController {
 
     private final StreamService streamService;
+    private static final String USER = "Authorization";
 
     @GetMapping("/{streamId}")
     @ResponseStatus(HttpStatus.OK)
-    public StreamDto getStreamById(@PathVariable @PositiveOrZero Long streamId) {
+    public StreamDto getStreamById(@RequestHeader(USER) long userId,
+                                   @PathVariable @PositiveOrZero Long streamId) {
         log.info("Получение стрима по его id {} ", streamId);
-        return streamService.getStreamById(streamId);
+        return streamService.getStreamById(userId, streamId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<StreamDto> getAllStreams(@PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
+    public List<StreamDto> getAllStreams(@RequestHeader(USER) long userId,
+                                         @PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
                                          @Positive @RequestParam(defaultValue = "10") Integer size) {
         log.info("Получение всех стримов");
         Pageable page = PageMaker.makePageableWithSort(from, size);
-        return streamService.getAllStreams(page);
+        return streamService.getAllStreams(userId, page);
     }
 }

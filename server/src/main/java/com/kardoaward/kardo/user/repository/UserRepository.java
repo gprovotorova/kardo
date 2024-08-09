@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Boolean existsByEmail(String email);
 
-    Boolean existsUserByNameAndSurname(String name, String surname);
+    Boolean existsUserByNameAndSurnameAndBirthday(String name, String surname, LocalDate birthday);
 
     @Override
     Optional<User> findById(Long aLong);

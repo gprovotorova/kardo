@@ -37,6 +37,7 @@ import com.kardoaward.kardo.post.dto.PostDto;
 import com.kardoaward.kardo.post.mapper.PostMapper;
 import com.kardoaward.kardo.post.model.Post;
 import com.kardoaward.kardo.post.repository.PostRepository;
+import com.kardoaward.kardo.user.dto.NewUserDto;
 import com.kardoaward.kardo.user.dto.UserDto;
 import com.kardoaward.kardo.user.dto.UserEntrance;
 import com.kardoaward.kardo.user.model.User;
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long userId, UserDto userDto) {
+    public UserDto updateUser(Long userId, NewUserDto userDto) {
         userRepository.existsById(userId);
         User user = mapper.map(userDto, User.class);
         return mapper.map(userRepository.save(user), UserDto.class);
@@ -111,7 +112,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ObjectNotFoundException("Пост с id = " + postId + " не найден."));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new ObjectNotFoundException("Комментарий с id = " + commentId + " не найден."));
-
         comment.setText(commentDto.getText());
         comment.setUpdatedDate(LocalDateTime.now());
 
@@ -319,21 +319,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String registration(UserDto userDto){
+    public UserDto registration(NewUserDto userDto){
         User user = mapper.map(userDto, User.class);
-        if (userRepository.existsUserByNameAndSurname(user.getName(), user.getSurname())) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new ConflictDataException("Пользователь с таким e-mail уже существует.");
+        }
+        if (userRepository.existsUserByNameAndSurnameAndBirthday(user.getName(), user.getSurname(), user.getBirthday())) {
             throw new ConflictDataException("Такой пользователь уже существует");
         }
-        userRepository.save(user);
-        return user.getId().toString();
+        return mapper.map(userRepository.save(user), UserDto.class);
     }
 
     @Override
-    public String login(UserEntrance userEntrance){
+    public UserDto login(UserEntrance userEntrance){
         User user = userRepository.findByEmail(userEntrance.getEmail());
         if(!user.getPassword().equals(userEntrance.getPassword())){
             throw new ConflictDataException("Неверный логин или пароль");
         }
-        return user.getId().toString();
+        return mapper.map(user, UserDto.class);
+    }
+
+    @Override
+    public UserDto getUserById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundException("Пользователь с id = " + userId + " не найден."));
+        return mapper.map(user, UserDto.class);
     }
 }

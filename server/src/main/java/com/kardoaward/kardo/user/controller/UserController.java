@@ -13,6 +13,7 @@ import com.kardoaward.kardo.participant.dto.EvaluatingParticipantDto;
 import com.kardoaward.kardo.participant.dto.EventParticipantDto;
 import com.kardoaward.kardo.post.dto.NewPostDto;
 import com.kardoaward.kardo.post.dto.PostDto;
+import com.kardoaward.kardo.user.dto.NewUserDto;
 import com.kardoaward.kardo.user.dto.UserDto;
 import com.kardoaward.kardo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,11 +38,16 @@ public class UserController {
     private final FileController fileController;
     private final UserService userService;
 
+    @GetMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDto getUser(@PathVariable @Positive Long userId) {
+        return userService.getUserById(userId);
+    }
 
     @PatchMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto updateUser(@PathVariable @PositiveOrZero Long userId,
-                              @RequestBody @Valid UserDto userDto) {
+                              @RequestBody @Valid NewUserDto userDto) {
         log.info("Добавление нового пользователя {}", userDto.toString());
         return userService.updateUser(userId, userDto);
     }

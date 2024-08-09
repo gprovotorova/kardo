@@ -22,12 +22,13 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private static final String USER = "Authorization";
 
     @GetMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostDto getPostById(@PathVariable @PositiveOrZero Long postId) {
+    public PostDto getPostById(@RequestHeader(USER) long userId, @PathVariable @PositiveOrZero Long postId) {
         log.info("Получение поста по его id {} ", postId);
-        return postService.getPostById(postId);
+        return postService.getPostById(userId, postId);
     }
 
     @GetMapping
