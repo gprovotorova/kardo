@@ -12,7 +12,7 @@ ____
 * Hibernate
 ____
 
-Для проекта предусмотрена спецификация API: [ewm-main-service-spec.json]([http://localhost:8080/swagger-ui.html])
+Для проекта предусмотрена спецификация API: http://localhost:8080/swagger-ui.html
 ____
 
 В прооекте используется база данных Postgres.
