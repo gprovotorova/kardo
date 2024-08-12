@@ -10,7 +10,7 @@ ____
 ____
 Технологический стек:
 * Java 17
-* Spring Boot
+* Spring Boot 2
 * PostgreSQL
 * Lombok
 * Maven
