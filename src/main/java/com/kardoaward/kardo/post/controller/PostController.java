@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Validated
-@Tag(name="Посты")
+@Tag(name = "Посты")
 public class PostController {
 
     private static final String USER = "Authorization";

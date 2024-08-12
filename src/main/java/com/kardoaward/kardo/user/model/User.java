@@ -3,16 +3,17 @@ package com.kardoaward.kardo.user.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kardoaward.kardo.common.Constants;
 import com.kardoaward.kardo.country.model.Country;
+import com.kardoaward.kardo.enums.UserGender;
 import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.file.model.FileInfo;
 import com.kardoaward.kardo.region.model.Region;
-import com.kardoaward.kardo.enums.UserGender;
 import lombok.*;
 
 import javax.persistence.*;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -26,8 +26,7 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
             if (webSocketSession.isOpen()) {
                 try {
                     webSocketSession.sendMessage(new BinaryMessage(message.getPayload()));
-                }
-                catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

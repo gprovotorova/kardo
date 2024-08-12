@@ -5,8 +5,6 @@ import com.kardoaward.kardo.competition.dto.CompetitionDto;
 import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.partners.dto.PartnerDto;
 import com.kardoaward.kardo.streams.dto.StreamDto;
-import com.kardoaward.kardo.user.dto.UserDto;
-import com.kardoaward.kardo.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,7 @@ import javax.validation.constraints.PositiveOrZero;
 @RequiredArgsConstructor
 @Slf4j
 @Validated
-@Tag(name="Admin", description="Создание и работа с данными администратором")
+@Tag(name = "Admin", description = "Создание и работа с данными администратором")
 public class AdminController {
 
     private final AdminService adminService;

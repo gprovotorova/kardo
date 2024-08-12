@@ -3,11 +3,9 @@ package com.kardoaward.kardo.partners.controller;
 import com.kardoaward.kardo.common.PageMaker;
 import com.kardoaward.kardo.enums.PartnerType;
 import com.kardoaward.kardo.partners.dto.PartnerDto;
-import com.kardoaward.kardo.partners.repository.PartnerRepository;
 import com.kardoaward.kardo.partners.service.PartnerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +21,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Validated
-@Tag(name="Партнеры")
+@Tag(name = "Партнеры")
 public class PartnerController {
 
     private final PartnerService partnerService;

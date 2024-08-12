@@ -1,4 +1,4 @@
-package com.kardoaward.kardo.file;
+package com.kardoaward.kardo.file.repository;
 
 import com.kardoaward.kardo.file.model.FileInfo;
 import org.springframework.data.jpa.repository.JpaRepository;

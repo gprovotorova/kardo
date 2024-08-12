@@ -1,7 +1,6 @@
 package com.kardoaward.kardo.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.kardoaward.kardo.common.Constants;
 import com.kardoaward.kardo.country.dto.CountryDto;
 import com.kardoaward.kardo.enums.UserGender;
@@ -9,7 +8,8 @@ import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.region.dto.RegionDto;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;

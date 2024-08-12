@@ -1,6 +1,5 @@
 package com.kardoaward.kardo.admin.model;
 
-import com.kardoaward.kardo.file.model.FileInfo;
 import lombok.*;
 
 import javax.persistence.*;

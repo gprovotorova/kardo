@@ -1,5 +1,6 @@
-package com.kardoaward.kardo.likes;
+package com.kardoaward.kardo.likes.repository;
 
+import com.kardoaward.kardo.likes.model.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

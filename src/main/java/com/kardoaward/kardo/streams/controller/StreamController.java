@@ -1,9 +1,6 @@
 package com.kardoaward.kardo.streams.controller;
 
-import com.kardoaward.kardo.admin.service.AdminService;
 import com.kardoaward.kardo.common.PageMaker;
-import com.kardoaward.kardo.event.dto.EventDto;
-import com.kardoaward.kardo.partners.dto.PartnerDto;
 import com.kardoaward.kardo.streams.dto.StreamDto;
 import com.kardoaward.kardo.streams.service.StreamService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,11 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -26,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Validated
-@Tag(name="Стримы")
+@Tag(name = "Стримы")
 public class StreamController {
 
     private final StreamService streamService;

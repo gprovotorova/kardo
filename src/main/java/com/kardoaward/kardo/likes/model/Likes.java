@@ -1,4 +1,4 @@
-package com.kardoaward.kardo.likes;
+package com.kardoaward.kardo.likes.model;
 
 import com.kardoaward.kardo.post.model.Post;
 import com.kardoaward.kardo.user.model.User;

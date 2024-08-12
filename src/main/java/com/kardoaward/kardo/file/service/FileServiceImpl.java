@@ -1,7 +1,7 @@
 package com.kardoaward.kardo.file.service;
 
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
-import com.kardoaward.kardo.file.FileRepository;
+import com.kardoaward.kardo.file.repository.FileRepository;
 import com.kardoaward.kardo.file.manager.FileManager;
 import com.kardoaward.kardo.file.model.FileInfo;
 import lombok.RequiredArgsConstructor;

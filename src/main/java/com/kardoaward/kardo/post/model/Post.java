@@ -1,7 +1,6 @@
 package com.kardoaward.kardo.post.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.kardoaward.kardo.comment.model.Comment;
 import com.kardoaward.kardo.common.Constants;
 import com.kardoaward.kardo.enums.DirectionType;
 import com.kardoaward.kardo.file.model.FileInfo;

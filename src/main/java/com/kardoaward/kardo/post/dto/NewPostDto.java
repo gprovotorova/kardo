@@ -5,10 +5,10 @@ import com.kardoaward.kardo.common.Constants;
 import com.kardoaward.kardo.enums.DirectionType;
 import com.kardoaward.kardo.file.model.FileInfo;
 import com.kardoaward.kardo.user.dto.UserDto;
-import com.kardoaward.kardo.user.model.User;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Getter

@@ -15,13 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 
-import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
-
 @RestController
-@RequestMapping(path = "/media/storage", consumes =  {"multipart/form-data"})
+@RequestMapping(path = "/media/storage", consumes = {"multipart/form-data"})
 @RequiredArgsConstructor
 @MultipartConfig
-@Tag(name="Медиа")
+@Tag(name = "Медиа")
 public class FileController {
 
     private final FileService fileService;

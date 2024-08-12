@@ -24,13 +24,13 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private ModelMapper mapper  = new ModelMapper();
+    private ModelMapper mapper = new ModelMapper();
 
     @Override
     @Transactional(readOnly = true)
     public PostDto getPostById(long userId, Long postId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
-        if (user.getType().equals(UserType.WATCHER)){
+        User user = userRepository.findById(userId).orElseThrow(() -> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)) {
             throw new ConflictDataException("Нет доступа");
         }
         Post post = postRepository.findById(postId)

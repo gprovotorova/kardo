@@ -3,7 +3,6 @@ package com.kardoaward.kardo.streams.service;
 import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.exception.ConflictDataException;
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
-
 import com.kardoaward.kardo.exception.StorageFileNotFoundException;
 import com.kardoaward.kardo.streams.dto.StreamDto;
 import com.kardoaward.kardo.streams.model.Stream;
@@ -30,8 +29,8 @@ public class StreamServiceImpl implements StreamService {
     @Override
     @Transactional(readOnly = true)
     public StreamDto getStreamById(Long userId, Long streamId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
-        if (user.getType().equals(UserType.WATCHER)){
+        User user = userRepository.findById(userId).orElseThrow(() -> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)) {
             throw new ConflictDataException("Нет доступа");
 
         }

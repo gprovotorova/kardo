@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @Validated
-@Tag(name="Авторизация")
+@Tag(name = "Авторизация")
 public class AuthController {
 
     private final UserService userService;
@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @Operation(description = "Вход")
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public UserDto login(@RequestBody UserEntrance userEntrance) {
         return userService.login(userEntrance);

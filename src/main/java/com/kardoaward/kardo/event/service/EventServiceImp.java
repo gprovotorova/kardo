@@ -36,22 +36,22 @@ public class EventServiceImp implements EventService {
     @Transactional(readOnly = true)
     public List<EventDto> getEvents(long userId, EventType eventType, LocalDate date, DirectionType directionType, Pageable page) {
         User user = userRepository.findById(userId)
-                .orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
-        if (user.getType().equals(UserType.WATCHER)){
+                .orElseThrow(() -> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)) {
             throw new ConflictDataException("Нет доступа");
         }
         List<EventDto> savedEvents = new ArrayList<>();
-        if(directionType == null){
+        if (directionType == null) {
             savedEvents = eventRepository.findEvents(eventType, date, page)
                     .stream()
                     .map(event -> mapper.map(event, EventDto.class)).collect(Collectors.toList());
         } else {
             List<Event> eventsDB = eventRepository.findEvents(eventType, date, page)
                     .stream().collect(Collectors.toList());
-            for (Event event: eventsDB) {
+            for (Event event : eventsDB) {
                 Set<Direction> directions = event.getDirection();
                 for (Direction direction : directions) {
-                    if (direction.getName().equals(directionType)){
+                    if (direction.getName().equals(directionType)) {
                         savedEvents.add(mapper.map(event, EventDto.class));
                     }
                 }

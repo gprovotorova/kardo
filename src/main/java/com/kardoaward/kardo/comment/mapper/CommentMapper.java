@@ -3,7 +3,6 @@ package com.kardoaward.kardo.comment.mapper;
 import com.kardoaward.kardo.comment.dto.CommentDto;
 import com.kardoaward.kardo.comment.dto.NewCommentDto;
 import com.kardoaward.kardo.comment.model.Comment;
-import com.kardoaward.kardo.file.model.FileInfo;
 import com.kardoaward.kardo.post.model.Post;
 import com.kardoaward.kardo.user.model.User;
 import org.springframework.stereotype.Component;

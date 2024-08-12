@@ -1,13 +1,9 @@
-package com.kardoaward.kardo.likes;
+package com.kardoaward.kardo.likes.dto;
 
 import com.kardoaward.kardo.post.model.Post;
 import com.kardoaward.kardo.user.model.User;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Getter

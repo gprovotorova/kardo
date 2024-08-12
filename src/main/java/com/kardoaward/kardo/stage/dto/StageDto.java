@@ -2,14 +2,12 @@ package com.kardoaward.kardo.stage.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kardoaward.kardo.common.Constants;
-import com.kardoaward.kardo.enums.DirectionType;
 import com.kardoaward.kardo.enums.StageStatus;
 import lombok.*;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

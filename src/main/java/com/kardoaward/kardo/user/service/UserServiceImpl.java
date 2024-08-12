@@ -17,11 +17,11 @@ import com.kardoaward.kardo.event.repository.EventRepository;
 import com.kardoaward.kardo.exception.ConflictDataException;
 import com.kardoaward.kardo.exception.ObjectExistException;
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
-import com.kardoaward.kardo.file.FileRepository;
 import com.kardoaward.kardo.file.model.FileInfo;
-import com.kardoaward.kardo.likes.Likes;
-import com.kardoaward.kardo.likes.LikesMapper;
-import com.kardoaward.kardo.likes.LikesRepository;
+import com.kardoaward.kardo.file.repository.FileRepository;
+import com.kardoaward.kardo.likes.mapper.LikesMapper;
+import com.kardoaward.kardo.likes.model.Likes;
+import com.kardoaward.kardo.likes.repository.LikesRepository;
 import com.kardoaward.kardo.participant.dto.CompetitionParticipantDto;
 import com.kardoaward.kardo.participant.dto.EvaluatingParticipantDto;
 import com.kardoaward.kardo.participant.dto.EventParticipantDto;
@@ -43,13 +43,16 @@ import com.kardoaward.kardo.user.dto.UserEntrance;
 import com.kardoaward.kardo.user.model.User;
 import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.OptionalDouble;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

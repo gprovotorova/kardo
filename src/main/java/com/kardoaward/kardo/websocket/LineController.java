@@ -15,7 +15,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
-@Tag(name="WebSockets")
+@Tag(name = "WebSockets")
 @Controller
 public class LineController {
     @Autowired

@@ -29,14 +29,15 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 @RequiredArgsConstructor
 @Validated
-@Tag(name="Пользователи")
+@Tag(name = "Пользователи")
 public class UserController {
     private final FileController fileController;
     private final UserService userService;
@@ -48,6 +49,13 @@ public class UserController {
                               @RequestBody @Valid NewUserDto userDto) {
         log.info("Добавление нового пользователя {}", userDto.toString());
         return userService.updateUser(userId, userDto);
+    }
+
+    @Operation(description = "Получение данных пользователя по его id")
+    @GetMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDto getUser(@PathVariable @Positive Long userId) {
+        return userService.getUserById(userId);
     }
 
     @Operation(description = "Создание комментария")
