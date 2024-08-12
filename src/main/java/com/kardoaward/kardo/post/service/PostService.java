@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostService {
 
-    PostDto getPostById(Long streamId);
+    PostDto getPostById(long userId, Long streamId);
 
-    //List<PostDto> getAllPosts();
+    List<PostDto> getAllPosts(Pageable page);
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StreamService {
 
-    StreamDto getStreamById(Long streamId);
+    StreamDto getStreamById(Long userId, Long streamId);
 
-    //List<StreamDto> getAllStreams(Pageable page);
+    List<StreamDto> getAllStreams(Pageable page);
 }

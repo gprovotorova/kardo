@@ -24,7 +24,7 @@ public class LineController {
     private UserController userController;
 
     @Operation(description = "Добавление поста")
-    @MessageMapping("/users/{userId}/posts/")
+    @MessageMapping("/users/{userId}/posts")
     @SendTo("/lines")
     public PostDto addPost(@Payload NewPostDto postDto,
                            @Payload DirectionType direction,

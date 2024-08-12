@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface EventService {
 
-    List<EventDto> getEvents(EventType eventType, LocalDate date, DirectionType direction, Pageable page);
+    EventDto getEventById(long userId, Long eventId);
 
-    EventDto getEventById(Long eventId);
+    List<EventDto> getEvents(long userId, EventType eventType, LocalDate date, DirectionType direction, Pageable page);
 }

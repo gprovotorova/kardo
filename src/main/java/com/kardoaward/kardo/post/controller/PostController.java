@@ -24,23 +24,24 @@ import java.util.List;
 @Tag(name="Посты")
 public class PostController {
 
+    private static final String USER = "Authorization";
     private final PostService postService;
 
     @Operation(description = "Получение поста по его id")
     @GetMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
-    public PostDto getPostById(@PathVariable @PositiveOrZero Long postId) {
+    public PostDto getPostById(@RequestHeader(USER) long userId, @PathVariable @PositiveOrZero Long postId) {
         log.info("Получение поста по его id {} ", postId);
-        return postService.getPostById(postId);
+        return postService.getPostById(userId, postId);
     }
 
-    /*@Operation(description = "Получение всех постов")
+    @Operation(description = "Получение всех постов")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<PostDto> getAllPosts() {
+    public List<PostDto> getAllPosts(@PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
+                                     @Positive @RequestParam(defaultValue = "10") Integer size) {
         log.info("Получение всех постов");
-        //Pageable page = PageMaker.makePageableWithSort(from, size);
-        return postService.getAllPosts();
+        Pageable page = PageMaker.makePageableWithSort(from, size);
+        return postService.getAllPosts(page);
     }
-     */
 }

@@ -29,22 +29,24 @@ import java.util.List;
 public class EventController {
 
     private EventService eventService;
+    private static final String USER = "Authorization";
 
     @Operation(description = "Получение мероприятий с возможностью фильтрации")
     @GetMapping()
-    public List<EventDto> getEventsWithFilters(@RequestParam(required = false) EventType eventType,
+    public List<EventDto> getEventsWithFilters(@RequestHeader(USER) long userId,
+                                               @RequestParam(required = false) EventType eventType,
                                                @RequestParam(required = false)
                                                @DateTimeFormat(pattern = Constants.DATE_FORMAT) LocalDate date,
                                                @RequestParam(required = false) DirectionType direction,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                                @RequestParam(defaultValue = "10") @Positive int size) {
         Pageable page = PageMaker.makePageableWithSort(from, size);
-        return eventService.getEvents(eventType, date, direction, page);
+        return eventService.getEvents(userId, eventType, date, direction, page);
     }
 
     @Operation(description = "Получение мероприятия по его id")
     @GetMapping(path = "/{eventId}")
-    public EventDto getEventById(@PathVariable Long eventId) {
-        return eventService.getEventById(eventId);
+    public EventDto getEventById(@RequestHeader(USER) long userId, @PathVariable Long eventId) {
+        return eventService.getEventById(userId, eventId);
     }
 }

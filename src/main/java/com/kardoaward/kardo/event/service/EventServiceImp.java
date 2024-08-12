@@ -3,10 +3,15 @@ package com.kardoaward.kardo.event.service;
 import com.kardoaward.kardo.direction.model.Direction;
 import com.kardoaward.kardo.enums.DirectionType;
 import com.kardoaward.kardo.enums.EventType;
+import com.kardoaward.kardo.enums.UserType;
 import com.kardoaward.kardo.event.dto.EventDto;
 import com.kardoaward.kardo.event.model.Event;
 import com.kardoaward.kardo.event.repository.EventRepository;
+import com.kardoaward.kardo.exception.ConflictDataException;
 import com.kardoaward.kardo.exception.ObjectNotFoundException;
+import com.kardoaward.kardo.exception.StorageFileNotFoundException;
+import com.kardoaward.kardo.user.model.User;
+import com.kardoaward.kardo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
@@ -24,11 +29,17 @@ import java.util.stream.Collectors;
 public class EventServiceImp implements EventService {
 
     private final EventRepository eventRepository;
+    private final UserRepository userRepository;
     private ModelMapper mapper = new ModelMapper();
 
     @Override
     @Transactional(readOnly = true)
-    public List<EventDto> getEvents(EventType eventType, LocalDate date, DirectionType directionType, Pageable page) {
+    public List<EventDto> getEvents(long userId, EventType eventType, LocalDate date, DirectionType directionType, Pageable page) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)){
+            throw new ConflictDataException("Нет доступа");
+        }
         List<EventDto> savedEvents = new ArrayList<>();
         if(directionType == null){
             savedEvents = eventRepository.findEvents(eventType, date, page)
@@ -51,7 +62,12 @@ public class EventServiceImp implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public EventDto getEventById(Long eventId) {
+    public EventDto getEventById(long userId, Long eventId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new StorageFileNotFoundException("Такого пользователя не существует"));
+        if (user.getType().equals(UserType.WATCHER)) {
+            throw new ConflictDataException("Нет доступа");
+        }
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("Событие не найдено или недоступно"));
         return mapper.map(event, EventDto.class);

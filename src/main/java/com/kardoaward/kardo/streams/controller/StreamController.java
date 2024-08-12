@@ -30,16 +30,18 @@ import java.util.List;
 public class StreamController {
 
     private final StreamService streamService;
+    private static final String USER = "Authorization";
 
     @Operation(description = "Получение стрима по его id")
     @GetMapping("/{streamId}")
     @ResponseStatus(HttpStatus.OK)
-    public StreamDto getStreamById(@PathVariable @PositiveOrZero Long streamId) {
+    public StreamDto getStreamById(@RequestHeader(USER) long userId,
+                                   @PathVariable @PositiveOrZero Long streamId) {
         log.info("Получение стрима по его id {} ", streamId);
-        return streamService.getStreamById(streamId);
+        return streamService.getStreamById(userId, streamId);
     }
 
-    /*@Operation(description = "Получение стримов с возможностью фильтрации")
+    @Operation(description = "Получение стримов с возможностью фильтрации")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<StreamDto> getAllStreams(@PositiveOrZero @RequestParam(defaultValue = "0") Integer from,
@@ -48,5 +50,4 @@ public class StreamController {
         Pageable page = PageMaker.makePageableWithSort(from, size);
         return streamService.getAllStreams(page);
     }
-     */
 }
